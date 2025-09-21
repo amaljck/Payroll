@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../pic/bg/back-ground.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.content {
+    max-width: 700px;
+    margin: 60px auto 40px auto;
+    padding: 2.5rem 2rem;
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    color: #1a237e;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+    backdrop-filter: blur(18px) brightness(1.15);
+    -webkit-backdrop-filter: blur(18px) brightness(1.15);
+}
+
+.content h1, .content h2 {
+    color: #1a237e;
+}
+
+.content p {
+    color: #222;
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+/* Animated Sign In Button */
+.button,
+.login-btn-big,
+.large-signin-btn,
+.animated-signin-btn {
+    color: #fbfcfd;
+    padding: 12px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    outline: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: 
+        background 0.3s, 
+        box-shadow 0.3s, 
+        transform 0.18s cubic-bezier(.4,2,.6,1), 
+        color 0.2s;
+    display: block;
+    margin: 3rem auto 0 auto;
+    width: 80%;
+    max-width: 400px;
+}
+
+.animated-signin-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.animated-signin-btn::before {
+    content: "";
+    position: absolute;
+    left: -75%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-20deg);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.animated-signin-btn:hover {
+    background: #1a237e;
+    color: #fff;
+    transform: scale(1.07) rotate(-1deg);
+    box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.45);
+}
+
+.animated-signin-btn:hover::before {
+    left: 120%;
+}
+
+.animated-signin-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.25);
+}
+
+/* Reveal scroll effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.4,2,.6,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

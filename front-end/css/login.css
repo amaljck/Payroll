@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Alona&display=swap');
+
+@font-face {
+    font-family: 'Alona';
+    src: url('../fonts/Alona.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5dc; /* Beige */
+    color: #000; /* Black */
+    height: 100vh;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.container {
+    /* Remove width: 100vw; */
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Remove min-height: 100vh; */
+}
+
+/* Gradient Blur Effect */
+
+
+
+.layer-blur{
+   height: 0;
+   width: 30rem;
+   position: absolute;
+   top: 20%;
+   right: 0;
+   box-shadow: 0 0 700px 15px white;
+   rotate: -30deg;
+   z-index: -1;
+}
+
+/* CONTAINER */
+
+.container{
+    /* Remove width: 100vw; */
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Remove min-height: 100vh; */
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center header content */
+    align-items: center;
+    padding: 2rem 0 1rem 0; /* Top padding only */
+}
+
+header h1{
+    
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.btn-signing {
+    background-color: #a7a7a7;
+    color: black;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-signing:hover {
+    background-color: white;
+}
+
+.login-blur-box {
+    margin: 3rem auto;
+    padding: 2rem 2.5rem;
+    max-width: 350px;
+    background: linear-gradient(135deg, rgba(183, 94, 87, 0.35) 0%, rgba(255, 183, 183, 0.18) 100%); /* Rust pink glass effect */
+    border-radius: 20px;
+    backdrop-filter: blur(18px) saturate(180%);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(183, 94, 87, 0.25); /* Rust pink border */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.2rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.15);
+    color: #e7e7e7;
+    outline: none;
+}
+
+.login-input::placeholder {
+    color: #bdbdbd;
+}
+
+spline-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 80vh;
+    z-index: -2;
+    opacity: 1; /* Reduced opacity */
+}
+
+/* For all text inside the login box */
+.login-blur-box,
+.login-blur-box label,
+.login-blur-box input,
+.login-blur-box button {
+    color: #000;
+}
+
+
+
+
+

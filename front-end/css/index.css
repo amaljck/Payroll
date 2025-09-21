@@ -1,82 +1,99 @@
+/* Import stylish font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
 }
 
-body, html {
+html, body {
     height: 100%;
     width: 100%;
+    margin: 0;
 }
 
+/* Background Image */
 .bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url(../pic/bg/back-ground.jpg);
+    background-image: url(../pic/bg2.jpeg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
 }
 
+/* Glass Content Box */
 .content {
     max-width: 700px;
-    margin: 60px auto 40px auto;
+    margin: 80px auto 20px auto; /* pushes box down */
     padding: 2.5rem 2rem;
     background: rgba(255,255,255,0.25);
     border-radius: 20px;
     color: #1a237e;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.10);
     backdrop-filter: blur(18px) brightness(1.15);
     -webkit-backdrop-filter: blur(18px) brightness(1.15);
+    text-align: center;
 }
 
-.content h1, .content h2 {
-    color: #1a237e;
+/* Headings */
+.content h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #000000; /* black heading */
+    margin-bottom: 1rem;
 }
 
+.content h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #e6c200; /* golden subheading */
+    margin-bottom: 0.8rem;
+}
+
+/* Paragraphs */
 .content p {
-    color: #222;
-    font-size: 1.08rem;
-    line-height: 1.7;
+    color: #444;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1rem;
 }
 
 /* Animated Sign In Button */
-.button,
-.login-btn-big,
-.large-signin-btn,
 .animated-signin-btn {
-    color: #fbfcfd;
+    color: #fff;
     padding: 12px 28px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 24px;
+    border: none;
+    border-radius: 28px;
     outline: none;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    font-size: 1.1rem;
+    background: linear-gradient(135deg, #b8860b, #ffd700);
+    box-shadow: 0 8px 20px rgba(184,134,11,0.37);
+    font-size: 1.15rem;
     font-weight: 600;
     transition: 
-        background 0.3s, 
-        box-shadow 0.3s, 
-        transform 0.18s cubic-bezier(.4,2,.6,1), 
-        color 0.2s;
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease-in-out,
+        color 0.2s ease;
     display: block;
-    margin: 3rem auto 0 auto;
+    margin: 2rem auto; /* centers below the glass box */
     width: 80%;
     max-width: 400px;
-}
-
-.animated-signin-btn {
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
+/* Skew shine effect */
 .animated-signin-btn::before {
     content: "";
     position: absolute;
@@ -86,24 +103,26 @@ body, html {
     height: 100%;
     background: rgba(255,255,255,0.25);
     transform: skewX(-20deg);
-    transition: left 0.5s;
-    z-index: 1;
+    transition: left 0.5s ease;
+    z-index: 0;
+    pointer-events: none;
 }
 
+/* Hover effect */
 .animated-signin-btn:hover {
-    background: #1a237e;
-    color: #fff;
+    background: linear-gradient(135deg, #ffd700, #e6c200);
     transform: scale(1.07) rotate(-1deg);
-    box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.45);
+    box-shadow: 0 12px 36px rgba(184,134,11,0.45);
 }
 
 .animated-signin-btn:hover::before {
     left: 120%;
 }
 
+/* Click effect */
 .animated-signin-btn:active {
-    transform: scale(0.96);
-    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.25);
+    transform: scale(0.95);
+    box-shadow: 0 4px 16px rgba(184,134,11,0.25);
 }
 
 /* Reveal scroll effect */
@@ -117,3 +136,4 @@ body, html {
     opacity: 1;
     transform: translateY(0);
 }
+

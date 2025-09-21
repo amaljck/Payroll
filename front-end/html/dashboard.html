@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: #f0f2f5;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            color: #ffd700;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .sidebar a {
+            padding: 12px 20px;
+            margin: 8px 0;
+            text-decoration: none;
+            color: #ffd700;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #ffd700;
+            color: #1a1a1a;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .main-content h1 {
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Employee table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background: #ffd700;
+            color: #1a1a1a;
+        }
+
+        table tr:hover {
+            background: #f1f1f1;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 5px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-add {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .btn-add:hover {
+            background: #218838;
+        }
+
+        .btn-remove {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .btn-remove:hover {
+            background: #c82333;
+        }
+
+        .btn-pay {
+            background: #ffc107;
+            color: #1a1a1a;
+        }
+
+        .btn-pay:hover {
+            background: #e0a800;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar a {
+                flex: 1;
+                text-align: center;
+                margin: 0 5px;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Payroll</h2>
+        <a href="#add-employee">Add Employee</a>
+        <a href="#remove-employee">Remove Employee</a>
+        <a href="#pay">Pay</a>
+        <a href="#settings">Settings</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Add Employee Section -->
+        <section id="add-employee">
+            <h1>Add Employee</h1>
+            <form>
+                <div class="form-group">
+                    <label>Employee Name</label>
+                    <input type="text" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <input type="text" placeholder="Enter ID">
+                </div>
+                <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" placeholder="Enter salary">
+                </div>
+                <button type="submit" class="btn btn-add">Add Employee</button>
+            </form>
+        </section>
+
+        <!-- Remove Employee Section -->
+        <section id="remove-employee" style="margin-top:3rem;">
+            <h1>Remove Employee</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EMP001</td>
+                        <td>John Doe</td>
+                        <td>$5000</td>
+                        <td>
+                            <button class="btn btn-remove">Remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EMP002</td>
+                        <td>Jane Smith</td>
+                        <td>$4500</td>
+                        <td>
+                            <button class="btn btn-remove">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Pay Section -->
+        <section id="pay" style="margin-top:3rem;">
+            <h1>Pay Employees</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EMP001</td>
+                        <td>John Doe</td>
+                        <td>$5000</td>
+                        <td>
+                            <button class="btn btn-pay">Pay</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EMP002</td>
+                        <td>Jane Smith</td>
+                        <td>$4500</td>
+                        <td>
+                            <button class="btn btn-pay">Pay</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" style="margin-top:3rem;">
+            <h1>Settings</h1>
+            <form>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" placeholder="Enter company name">
+                </div>
+                <div class="form-group">
+                    <label>Currency</label>
+                    <input type="text" placeholder="Enter currency symbol">
+                </div>
+                <button type="submit" class="btn btn-add">Save Settings</button>
+            </form>
+        </section>
+
+    </div>
+
+</body>
+</html>

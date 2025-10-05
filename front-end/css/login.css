@@ -18,7 +18,7 @@ body {
     background: url(../pic/bg/bglog.jpeg) no-repeat center center/cover;
 }
 
-/* Centered login container */
+/* Centered login container with floating animation */
 .login-container {
     position: absolute;
     top: 50%;
@@ -34,6 +34,12 @@ body {
     border: 1px solid rgba(255,255,255,0.18);
     text-align: center;
     color: #fff;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-10px); }
 }
 
 /* Heading */
@@ -41,7 +47,7 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    color: #ffd700; /* golden heading */
+    color: #ffd700;
 }
 
 /* Input fields */
@@ -58,10 +64,17 @@ body {
     outline: none;
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 .login-container input::placeholder {
     color: rgba(255,255,255,0.7);
+}
+
+.login-container input:focus {
+    background: rgba(255,255,255,0.3);
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+    border: 1px solid #ffd700;
 }
 
 /* Login button */
@@ -108,7 +121,7 @@ body {
     box-shadow: 0 4px 16px rgba(184,134,11,0.25);
 }
 
-/* Optional: links */
+/* Links */
 .login-container a {
     display: block;
     margin-top: 1rem;
@@ -119,5 +132,36 @@ body {
 }
 
 .login-container a:hover {
-    color: #e6c200;
+    color: #fffacd;
+    text-decoration: underline;
+}
+
+/* ===== Flash messages styling ===== */
+.flash-message {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Error messages */
+.flash-message.error {
+    background-color: rgba(255, 99, 71, 0.2);
+    color: #ff6347;
+    border: 1px solid #ff6347;
+}
+
+/* Success messages */
+.flash-message.success {
+    background-color: rgba(50, 205, 50, 0.2);
+    color: #32cd32;
+    border: 1px solid #32cd32;
+}
+
+/* Warning messages */
+.flash-message.warning {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    border: 1px solid #ffd700;
 }

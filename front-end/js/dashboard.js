@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
             links.forEach(l => l.classList.remove('active'));
 
             // Add "active" class to the clicked link
-            this.classList.add('active');
+            this.classL
+        });
+    });
+});
+ist.add('active');
 
             // Hide all sections
             sections.forEach(section => section.classList.remove('active'));
@@ -22,6 +26,3 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetSection) {
                 targetSection.classList.add('active');
             }
-        });
-    });
-});

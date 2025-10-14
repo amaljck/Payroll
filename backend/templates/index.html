@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg"></div>
+
+    <!-- Glass Content Box -->
+    <div class="content">
+        <h1>Payroll Management System</h1>
+        <h2>Smart • Fast • Secure</h2>
+        <p class="reveal">
+            Managing employee payroll can be complex, time-consuming, and prone to errors if done manually. 
+            Our Payroll Management System simplifies this process, ensuring accuracy, efficiency, 
+            and transparency in salary calculations, deductions, and record-keeping.
+        </p>
+    </div>
+
+    <!-- Sign In Button -->
+    <button type="button" class="animated-signin-btn" id="signInBtn">Sign In</button>
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script>
+        document.getElementById("signInBtn").addEventListener("click", function () {
+            // For now, just alert. Later, link to login page
+            alert("Sign In clicked! We will link this to login page next.");
+        });
+    </script>
+</body>
+</html>

@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payroll Management System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payroll - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <!-- Background -->
-    <div class="bg"></div>
+  <!-- background layer (must exist for index.css .bg rules) -->
+  <div class="bg"></div>
 
-    <!-- Glass Content Box -->
-    <div class="content">
-        <h1>Payroll Management System</h1>
-        <h2>Smart • Fast • Secure</h2>
-        <p class="reveal">
-            Managing employee payroll can be complex, time-consuming, and prone to errors if done manually. 
-            Our Payroll Management System simplifies this process, ensuring accuracy, efficiency, 
-            and transparency in salary calculations, deductions, and record-keeping.
-        </p>
-    </div>
+  <!-- main app content should use .content so it layers above .bg -->
+  <main class="content">
+    <h1>Welcome to Payroll</h1>
+    <p>The Payroll Management System is designed to 
+      automate and simplify the process of managing employee salaries, 
+      attendance, and related financial records within an organization. 
+      This system ensures accurate calculation of employee wages based on working hours, deductions, bonuses, and allowances.
+      It provides secure data storage and easy retrieval of employee details, payment history, and tax information.
+      The project includes both web and mobile interfaces for administrators and employees, 
+      offering functionalities such as login authentication, employee data management, salary slip generation, 
+      and payroll report generation. By reducing manual effort and minimizing errors, the system enhances efficiency, 
+      transparency, and reliability in payroll operations.</p>
 
-    <!-- Sign In Button -->
-    <button type="button" class="animated-signin-btn" id="signInBtn">Sign In</button>
+    <!-- change class to match CSS -->
+    <a id="signin-link" class="animated-signin-btn" href="{{ url_for('login') }}">Sign In</a>
+  </main>
 
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-    <script>
-        document.getElementById("signInBtn").addEventListener("click", function () {
-            // For now, just alert. Later, link to login page
-            alert("Sign In clicked! We will link this to login page next.");
-        });
-    </script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payroll — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body class="dash-root">
+  <aside class="dash-sidebar">
+    <div class="brand">
+      <div class="logo">P</div>
+      <div class="brand-text">
+        <div class="name">Payroll</div>
+        <div class="sub">Admin</div>
+      </div>
+    </div>
+
+    <nav class="dash-nav" role="navigation" aria-label="Main">
+      <button type="button" class="nav-item active" data-target="home">Home</button>
+      <button type="button" class="nav-item" data-target="employees">Manage Employees</button>
+      <button type="button" class="nav-item" data-target="payslip">Generate Payslip</button>
+      <button type="button" class="nav-item" data-target="departments">Departments</button>
+      <button type="button" class="nav-item" data-target="settings">Settings</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a class="small-btn" href="{{ url_for('index') }}">Back to Site</a>
+      <form action="{{ url_for('logout') }}" method="post" style="display:inline;">
+        <button class="small-btn danger" name="logout" value="1" title="Logout">Logout</button>
+      </form>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <header class="dash-header">
+      <h1 class="page-title">Dashboard</h1>
+      <div class="header-actions">
+        <button type="button" class="cta">New Employee</button>
+      </div>
+    </header>
+
+    <section class="dash-content">
+      <section id="home" class="tab-panel active">
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">Total Employees</div>
+            <div class="card-value" id="totalEmployees">{{ totals.employees }}</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Pending Payslips</div>
+            <div class="card-value">{{ totals.pending_payslips }}</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Departments</div>
+            <div class="card-value">{{ totals.departments }}</div>
+          </div>
+        </div>
+
+        <!-- Pending payslips panel (replaces quick actions) -->
+        <div class="panel">
+          <h2>Pending Payslips</h2>
+
+          {% if pending_payslips %}
+            <table class="table">
+              <thead>
+                <!-- removed ID column -->
+                <tr><th>Employee</th><th>Period</th><th>Gross</th><th>Deductions</th><th>Net</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                {% for p in pending_payslips %}
+                  <tr>
+                    <td>{{ p.username }}</td>
+                    <td>{{ p.period }}</td>
+                    <td>{{ '%.2f'|format(p.gross) }}</td>
+                    <td>{{ '%.2f'|format(p.deductions) }}</td>
+                    <td>{{ '%.2f'|format(p.net) }}</td>
+                    <td>
+                      <!-- preview removed; only mark-paid remains -->
+                      <button type="button" class="mini" data-id="{{ p.id }}" data-action="mark-paid">Mark Paid</button>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="muted">No pending payslips.</div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section id="employees" class="tab-panel">
+        <h2>Manage Employees</h2>
+        <div class="panel">
+          {% if employees %}
+          <table class="table">
+            <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Actions</th></tr></thead>
+            <tbody>
+              {% for emp in employees %}
+                <tr id="emp-row-{{ emp.id }}">
+                  <td>{{ emp.id }}</td>
+                  <td class="emp-username">{{ emp.username }}</td>
+                  <td class="emp-role">{{ emp.role }}</td>
+                  <td>
+                    <button type="button" class="mini edit-emp" data-id="{{ emp.id }}">Edit</button>
+                    <!-- added delete button -->
+                    <button type="button" class="mini delete-emp" data-id="{{ emp.id }}">Delete</button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+            <div class="muted">No employees found.</div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section id="payslip" class="tab-panel">
+        <h2>Generate Payslip</h2>
+        <div class="panel">
+          <form id="generatePayslipForm" onsubmit="return false;">
+            <label>Employee</label>
+            <select id="payslipEmployee" required>
+              <option value="">— select employee —</option>
+              {% for emp in employees %}
+                <option value="{{ emp.id }}">{{ emp.username or emp.name }}</option>
+              {% endfor %}
+            </select>
+
+            <label>Month</label>
+            <select id="payslipMonth" required></select>
+
+            <div class="form-row">
+              <button id="generatePayslipBtn" class="btn-primary" type="button">Generate Payslip</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="departments" class="tab-panel">
+        <h2>Departments</h2>
+        <div class="panel">
+          {% if departments %}
+          <ul class="dept-list">
+            {% for d in departments %}
+              <li>{{ d.name }} <span class="muted">— ID {{ d.id }}</span></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+            <div class="muted">No departments found.</div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section id="settings" class="tab-panel">
+        <h2>Settings</h2>
+        <div class="panel">
+          <label>Company name</label>
+          <input value="Acme Corp" />
+          <label>Payroll cycle</label>
+          <select><option>Monthly</option><option>Bi-weekly</option></select>
+          <div class="form-row">
+            <button class="btn-primary">Save</button>
+            <button class="btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- New Employee Modal -->
+  <div id="newEmployeeModal" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999">
+    <div class="modal-dialog" style="background:var(--panel);padding:20px;border-radius:10px;min-width:360px;color:var(--text)">
+      <h3 style="margin:0 0 10px 0">Add New Employee</h3>
+      <form id="newEmployeeForm">
+        <label>Name</label>
+        <input name="name" required style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Email</label>
+        <input name="email" type="email" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Phone</label>
+        <input name="phone" type="tel" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Designation</label>
+        <input name="designation" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Department</label>
+        <!-- send department name (string) to match employees.department -->
+        <select name="department" style="width:100%;padding:8px;margin:6px 0;border-radius:6px">
+          <option value="">— none —</option>
+          {% for d in departments %}
+            <option value="{{ d.name }}">{{ d.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label>Join date</label>
+        <input name="join_date" type="date" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Salary</label>
+        <input name="salary" type="number" step="0.01" min="0" value="0.00" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+          <button type="button" id="cancelNewEmployee" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Add</button>
+        </div>
+
+        <div id="newEmployeeMsg" style="margin-top:10px;color:#ffb74d;display:none"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Employee Modal (employees table fields) -->
+  <div id="editEmployeeModal" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999">
+    <div class="modal-dialog" style="background:var(--panel);padding:20px;border-radius:10px;min-width:360px;color:var(--text)">
+      <h3 style="margin:0 0 10px 0">Edit Employee</h3>
+      <form id="editEmployeeForm">
+        <input type="hidden" name="id" />
+
+        <label>Name</label>
+        <input name="name" required style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Email</label>
+        <input name="email" type="email" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Phone</label>
+        <input name="phone" type="tel" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Designation</label>
+        <input name="designation" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Department</label>
+        <select name="department" style="width:100%;padding:8px;margin:6px 0;border-radius:6px">
+          <option value="">— none —</option>
+          {% for d in departments %}
+            <option value="{{ d.name }}">{{ d.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label>Join date</label>
+        <input name="join_date" type="date" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <label>Salary</label>
+        <input name="salary" type="number" step="0.01" min="0" style="width:100%;padding:8px;margin:6px 0;border-radius:6px" />
+
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+          <button type="button" id="cancelEditEmployee" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save</button>
+        </div>
+
+        <div id="editEmployeeMsg" style="margin-top:10px;color:#ffb74d;display:none"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Payslip success modal -->
+  <div id="payslipSuccessModal" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;z-index:9999">
+    <div class="modal-dialog" style="background:var(--panel);padding:20px;border-radius:10px;min-width:320px;color:var(--text)">
+      <h3 style="margin:0 0 10px 0">Payslip generated</h3>
+      <p id="payslipSuccessText" style="margin:0 0 12px 0"></p>
+      <div style="text-align:right">
+        <button type="button" id="closePayslipSuccess" class="btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

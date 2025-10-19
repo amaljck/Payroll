@@ -3,28 +3,41 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
 html, body { height:100%; width:100%; }
 
-/* Background Image */
+/* Background wrapper (use this element in your HTML) */
 .bg {
-    position: fixed; top:0; left:0;
-    width:100vw; height:100vh;
-    background-image: url('../img/bg2.jpeg');
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background-image: url('/static/img/bg2.jpeg'); /* absolute Flask static path */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index:-1;
+    z-index: 0; /* ensure it's behind content but not hidden */
+}
+
+/* Fallback background on body in case .bg isn't inserted */
+body {
+  background-color: #f5f7fb;
+  background-image: url('/static/img/bg2.jpeg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 /* Glass Content Box */
 .content {
+    position: relative;
+    z-index: 1; /* ensure it sits above .bg */
     max-width: 700px;
     margin: 80px auto 20px auto;
     padding: 2.5rem 2rem;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.45); /* slightly stronger for legibility */
     border-radius: 20px;
     color: #1a237e;
-    box-shadow: 0 8px 32px rgba(31,38,135,0.1);
-    backdrop-filter: blur(18px) brightness(1.15);
-    text-align:center;
+    box-shadow: 0 8px 32px rgba(31,38,135,0.08);
+    -webkit-backdrop-filter: blur(14px) brightness(1.08);
+    backdrop-filter: blur(14px) brightness(1.08);
+    text-align: center;
+    overflow: hidden;
 }
 
 .content h1 { font-size:2.2rem; font-weight:700; color:#000; margin-bottom:1rem; }
@@ -33,23 +46,56 @@ html, body { height:100%; width:100%; }
 
 /* Animated Sign In Button */
 .animated-signin-btn {
-    color:#fff; padding:12px 28px; border:none; border-radius:28px;
-    cursor:pointer; background:linear-gradient(135deg, #b8860b, #ffd700);
-    box-shadow:0 8px 20px rgba(184,134,11,0.37);
-    font-size:1.15rem; font-weight:600;
-    transition: all 0.3s ease;
-    display:block; margin:2rem auto; width:80%; max-width:400px;
-    position:relative; overflow:hidden;
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 28px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #b8860b, #ffd700);
+    box-shadow: 0 8px 20px rgba(184,134,11,0.28);
+    font-size: 1.15rem;
+    font-weight: 600;
+    transition: transform 0.28s ease, background 0.3s ease;
+    display: inline-flex;             /* center text horizontally */
+    align-items: center;              /* center text vertically */
+    justify-content: center;
+    min-height: 48px;                 /* consistent height */
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;                        /* ensure text/content sits above pseudo */
+    text-align: center;
 }
 
+/* highlight sweep */
 .animated-signin-btn::before {
-    content:""; position:absolute; left:-75%; top:0;
-    width:50%; height:100%; background: rgba(255,255,255,0.25);
-    transform:skewX(-20deg); transition:left 0.5s ease; z-index:0;
+    content: "";
+    position: absolute;
+    left: -60%;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    background: rgba(255,255,255,0.22);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+    z-index: 0; /* behind the button text */
 }
 
-.animated-signin-btn:hover { background: linear-gradient(135deg, #ffd700, #e6c200); transform:scale(1.07) rotate(-1deg);}
-.animated-signin-btn:hover::before { left:120%; }
+.animated-signin-btn:hover {
+    background: linear-gradient(135deg, #ffd700, #e6c200);
+    transform: scale(1.04) rotate(-0.6deg);
+}
+.animated-signin-btn:hover::before {
+    left: 130%;
+}
 
-.reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.4,2,.6,1);}
-.reveal.visible { opacity:1; transform:translateY(0);}
+/* reveal animation helpers */
+.reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.4,2,.6,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* small responsive tweak */
+@media (max-width:480px) {
+  .content { margin: 40px 16px; padding: 1.5rem; border-radius: 14px; }
+  .animated-signin-btn { width: 100%; max-width: none; }
+}

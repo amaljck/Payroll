@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payroll - Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+  <form class="login" id="loginForm" method="post" action="{{ url_for('login') }}" novalidate>
+    <h2>Sign in</h2>
+
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" autocomplete="username" required />
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+    {% if error %}
+      <div class="error" id="error">{{ error }}</div>
+    {% else %}
+      <div class="error" id="error" style="display:none">Please enter username and password.</div>
+    {% endif %}
+
+    <div class="actions">
+      <button type="button" class="btn btn-secondary" onclick="location.href='{{ url_for('index') }}'">Back</button>
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </div>
+  </form>
+</body>
+</html>
